@@ -39,12 +39,13 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: process.env.NODE_ENV === "production",
-      httpOnly: true,
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-    },
-    proxy: process.env.NODE_ENV === "production",
+  secure: true, // IMPORTANT on Fly (HTTPS)
+  httpOnly: true,
+  maxAge: 7 * 24 * 60 * 60 * 1000,
+  sameSite: "none", // allow cookie to be sent in secure contexts
+},
+proxy: true,
+    
     store: new MemoryStore({
       checkPeriod: 86400000,
     }),
