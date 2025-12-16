@@ -83,8 +83,14 @@ app.use((req, res, next) => {
 });
 
 (async () => {
-  await seedDatabase();
+  if (!process.env.DATABASE_URL) {
+    console.warn("DATABASE_URL is not set – skipping seedDatabase on Fly for now.");
+  } else {
+    await seedDatabase();
+  }
+
   const server = await registerRoutes(app);
+
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
