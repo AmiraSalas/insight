@@ -2,7 +2,7 @@ app = "insight-tg"
 primary_region = "dfw"
 
 [http_service]
-  internal_port = 3000
+  internal_port = 80
   force_https = true
   auto_start_machines = true
   auto_stop_machines = "stop"
