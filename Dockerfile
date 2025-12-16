@@ -1,27 +1,11 @@
 # syntax = docker/dockerfile:1
-FROM node:22-slim AS build
+FROM nginx:alpine
 
-WORKDIR /app
+WORKDIR /usr/share/nginx/html
 
-# Install dependencies
-COPY package*.json ./
-RUN npm ci
+# Copy the built frontend only
+COPY client/dist ./
 
-# Copy all code and build
-COPY . .
-RUN npm run build
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
 
-# Runtime image
-FROM node:22-slim
-
-WORKDIR /app
-ENV NODE_ENV=production
-ENV PORT=3000
-
-COPY package*.json ./
-RUN npm ci --omit=dev
-
-COPY --from=build /app ./
-
-EXPOSE 3000
-CMD ["npm","run","start"]
