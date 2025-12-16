@@ -1,5 +1,8 @@
-﻿app = 'insight-tg'
+app = 'insight-tg'
 primary_region = 'iad'
+
+[build]
+  dockerfile = 'Dockerfile'
 
 [http_service]
   internal_port = 3000
@@ -10,4 +13,3 @@ primary_region = 'iad'
 
 [env]
   NODE_ENV = 'production'
-  PORT = '3000'
