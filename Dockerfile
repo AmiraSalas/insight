@@ -3,9 +3,13 @@ FROM nginx:alpine
 
 WORKDIR /usr/share/nginx/html
 
-# Copy the built frontend from dist/public
+# Copy built frontend
 COPY dist/public ./
+
+# Copy custom nginx config
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
+
 
