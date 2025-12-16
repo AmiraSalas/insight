@@ -2,9 +2,5 @@ app = "insight-tg"
 primary_region = "iad"
 
 [http_service]
-  internal_port = 3000
+  internal_port = 80
   force_https = true
-
-[env]
-  NODE_ENV = "production"
-  PORT = "3000"
