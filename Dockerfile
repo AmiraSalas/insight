@@ -5,6 +5,7 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 RUN npm run build
-RUN npm prune --production
+RUN rm -rf node_modules server esbuild
+RUN npm install --production
 EXPOSE 3000
-CMD ["npm", "start"]
+CMD ["node", "dist/index.js"]
