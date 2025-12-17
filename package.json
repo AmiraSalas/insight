@@ -11,6 +11,7 @@
     "db:push": "drizzle-kit push"
   },
   "dependencies": {
+    "lucide-react": "^0.453.0",
     "@radix-ui/react-tooltip": "^1.2.0",
     "@neondatabase/serverless": "^0.10.4",
     "connect-pg-simple": "^10.0.0",
