@@ -1,21 +1,28 @@
-FROM node:20-slim
-
+# Build stage
+FROM node:22 AS build
 WORKDIR /app
 
-# Install deps first (better caching)
 COPY package*.json ./
 RUN npm ci
 
-# Copy app
 COPY . .
-
-# Build frontend + backend (creates dist/index.js)
 RUN npm run build
+
+# Run stage
+FROM node:22-slim
+WORKDIR /app
 
 ENV NODE_ENV=production
 ENV PORT=3000
-EXPOSE 3000
 
-CMD ["npm", "start"]
+COPY --from=build /app/package*.json ./
+RUN npm ci --omit=dev
+
+COPY --from=build /app/dist ./dist
+COPY --from=build /app/server ./server
+
+EXPOSE 3000
+CMD ["node", "dist/index.js"]
+
 
 
